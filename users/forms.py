@@ -1,0 +1,20 @@
+from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.forms import fields
+from .models import Student
+
+
+class UserRegistrationForm (UserCreationForm):
+    email=forms.EmailField()
+    student_id=forms.IntegerField()
+
+    class Meta:
+        model=User
+        fields=['username','email','student_id']
+
+
+class StudentRegistrationForm (forms.ModelForm):
+    class Meta:
+        model=Student
+        fields=[ 'student_id','firstName','lastName','email','password']
