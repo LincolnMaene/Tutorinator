@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
+from django.http import HttpResponse
 from .forms import UserRegistrationForm
 # Create your views here.
 
@@ -22,3 +23,8 @@ def register (request): #function that returns view of register page
         form = UserRegistrationForm()
 
     return render(request, 'users/register.html',{'form': form})
+
+
+def homeView(request): #home page view
+
+    return render (request, 'users/home.html')

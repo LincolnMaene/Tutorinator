@@ -124,4 +124,4 @@ STATIC_URL = '/static/'
 
 CRISPY_TEMPLATE_PACK='bootstrap4'
 
-LOGIN_REDIRECT_URL='tutoring-home' #where the user is redirected upon login
+LOGIN_REDIRECT_URL='home' #where the user is redirected upon login
