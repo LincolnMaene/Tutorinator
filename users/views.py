@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.http import HttpResponse
 from .forms import UserRegistrationForm
+from django.contrib.auth import logout
+from django import template
 # Create your views here.
 
 def register (request): #function that returns view of register page
@@ -24,6 +26,9 @@ def register (request): #function that returns view of register page
 
     return render(request, 'users/register.html',{'form': form})
 
+def logout_view(request):
+    logout(request)
+    return render (request, 'users/logout.html')
 
 def homeView(request): #home page view
 

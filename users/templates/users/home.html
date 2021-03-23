@@ -1,10 +1,17 @@
-<html>
+{% load user_tags %}
 
+
+
+<html>
+<!-- trying to make sure page is centered-->
     <style>
+        
         .content { 
           max-width: 500px;
           margin: auto;
         }
+
+        
     </style>
 
     <div class = "content">
@@ -13,10 +20,34 @@
 
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+            {% if request.user|in_group:"Tutor"%} <!--display a different welcome depending on user group-->
+                <h5>Welcome To Tutorinator 1.0, Tutors</h5>
 
-            <h5>Welcome To Tutorinator 1.0<h5>
-            <h6>  Already Registered? <a class="ml-2" href="{% url 'login' %}">Log in</a> </h6>
-            <h6>Need An Acoount? <a class="ml-2" href="{% url 'register' %}">Create One</a></h6>
+            {% elif request.user|in_group:"Tutor Admin"%}
+
+                <h5>Welcome To Tutorinator 1.0, Admins</h5>
+
+            
+            {% elif request.user|in_group:"Student"%}
+
+                <h5>Welcome To Tutorinator 1.0, Students</h5>
+            
+            {% else %}
+
+                <h5>Welcome To Tutorinator 1.0</h5>
+
+            {% endif  %}
+
+              
+
+            {% if user.is_authenticated %} <!-- the code below only appears if user is logged-->
+                <h6>Need to Log out? <a class="ml-2" href="{% url 'logout' %}">Click here</a></h6>
+            {% else %}
+                
+                <h6>  Already Registered? <a class="ml-2" href="{% url 'login' %}">Log in</a> </h6>
+                <h6>Need An Acoount? <a class="ml-2" href="{% url 'register' %}">Create One</a></h6>
+            {% endif %}
+         
 
             
 
