@@ -7,7 +7,7 @@
     <style>
         
         .content { 
-          max-width: 500px;
+          max-width: 1080px;
           margin: auto;
         }
 
@@ -54,7 +54,15 @@
         </head>
 
         <body>
-        
+            
+            <h1>Current List of Students:</h1> <!-- print the qeue of students here -->
+
+            {% for student in queue %}
+
+                <h5> {{student.date}} {{student.student_id}} {{student.firstName}} {{student.lastName}} {{student.course}} </h5>
+
+            {% endfor %}
+
       
 
         </body>

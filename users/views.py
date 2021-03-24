@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from .forms import UserRegistrationForm
 from django.contrib.auth import logout
 from django import template
+from .models import studentQueue
 # Create your views here.
 
 def register (request): #function that returns view of register page
@@ -27,9 +28,18 @@ def register (request): #function that returns view of register page
     return render(request, 'users/register.html',{'form': form})
 
 def logout_view(request):
+
     logout(request)
     return render (request, 'users/logout.html')
 
 def homeView(request): #home page view
 
-    return render (request, 'users/home.html')
+    queue=studentQueue.objects.all()
+    
+    
+    queueContext={ #allows us to use django variables in the html template
+
+        'queue':queue
+    }
+    
+    return render (request, 'users/home.html', queueContext)
