@@ -42,6 +42,7 @@
 
             {% if user.is_authenticated %} <!-- the code below only appears if user is logged-->
                 <h6>Need to Log out? <a class="ml-2" href="{% url 'logout' %}">Click here</a></h6>
+                <h6>Add Student To Queue? <a class="ml-2" href="{% url 'addStudent' %}">Click here</a></h6>
             {% else %}
                 
                 <h6>  Already Registered? <a class="ml-2" href="{% url 'login' %}">Log in</a> </h6>
@@ -58,8 +59,8 @@
             <h1>Current List of Students:</h1> <!-- print the qeue of students here -->
 
             {% for student in queue %}
-
-                <h5> {{student.date}} {{student.student_id}} {{student.firstName}} {{student.lastName}} {{student.course}} </h5>
+                
+                <h5> {{student.student_id}} {{student.firstName}} {{student.lastName}} {{student.course}} </h5>
 
             {% endfor %}
 

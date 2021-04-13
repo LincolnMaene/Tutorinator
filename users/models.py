@@ -22,6 +22,7 @@ class Administrator(models.Model): #admin model
 class studentQueue (models.Model):
     
     date=models.DateTimeField(auto_now_add=True, blank=True)
+    day=models.DateField(null=True, auto_now=True)
     student_id=models.IntegerField(unique=True)
     firstName=models.CharField(max_length=250)
     lastName=models.CharField(max_length=250)

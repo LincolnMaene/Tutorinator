@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import fields
+from .models import studentQueue
 from .models import Student
 
 
@@ -18,3 +19,17 @@ class StudentRegistrationForm (forms.ModelForm):
     class Meta:
         model=Student
         fields=[ 'student_id','firstName','lastName','email','password']
+
+class addStudentForm(forms.ModelForm): #allows us to add students to queue
+
+   
+    class Meta:
+        model=studentQueue
+        fields = [
+            'student_id',
+            'firstName',
+            'lastName',
+            'course'
+        ]
+
+
