@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.forms import fields
 from .models import studentQueue
 from .models import Student
+from .models import Sessions
 
 
 class UserRegistrationForm (UserCreationForm):
@@ -32,4 +33,14 @@ class addStudentForm(forms.ModelForm): #allows us to add students to queue
             'course'
         ]
 
+class addSessionForm(forms.ModelForm): #allows us to add students to queue
 
+   
+    class Meta:
+        model=Sessions
+        fields = [
+            'student_id',
+            'studentName',
+            'TutorName',
+            'course'
+        ]

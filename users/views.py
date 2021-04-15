@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.http import HttpResponse
@@ -7,7 +7,13 @@ from django.contrib.auth import logout
 from django import template
 from .models import studentQueue
 import datetime
+import time
+from timeit import default_timer as timer
+
 # Create your views here.
+
+queue=None # global variable for the queue of students
+
 
 def register (request): #function that returns view of register page
 
@@ -33,6 +39,22 @@ def logout_view(request):
     logout(request)
     return render (request, 'users/logout.html')
 
+
+def studentView(request, student_id):
+    
+    student=get_object_or_404(studentQueue, student_id=student_id)
+
+    if request.method=="POST":
+        student.delete()
+        return redirect('/')
+    context={
+        'student': student
+    }
+
+    return render(request,'users/student.html',context)
+
+
+
 def addStudentView(request): #allows us to add students to queue
 
     form=addStudentForm(request.POST or None)
@@ -57,9 +79,13 @@ def homeView(request): #home page view
     today=datetime.datetime.now()# used to ensure only students added to the queue today are displayed
     queue=studentQueue.objects.filter(day=today)
     
+    timeLeft=datetime.timedelta(0,0,0,0,30,0,0) # how much time a student has left, to later be set by admin
+
+    for student in queue:
+        student.timeLeft=timeLeft
     
         
-    queueContext={ #allows us to use django variables in the html template
+    queueContext={ #allows us to use python variables in the html template
 
         'queue':queue,
         'today':today

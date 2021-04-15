@@ -53,10 +53,10 @@
             
 
         </head>
-
+        {% if request.user|in_group:"Tutor" or request.user|in_group:"Tutor Admin" %}
         <body>
             
-            <h1>Current List of Students:</h1> <!-- print the qeue of students here -->
+            <h1>Student Being Tutored:</h1> <!-- print the qeue of students here -->
 
             <table> <!--trying to print it as a table, for legibility -->
 
@@ -84,10 +84,10 @@
                     <th>Time Left</th>
                 </tr>
 
-                {% for student in queue %}
+                
 
                 <tr> 
-                    <td> <li> <a class="ml-2" href="{% url 'student' student.student_id %}"> {{student.student_id}}</a> </li> </td>
+                    <td> {{student.student_id}} </td>
 
                     <td></td>  
                     <td></td>  
@@ -117,10 +117,18 @@
                 
                     
 
-                {% endfor %}
+              
 
       
-            </table>    
-        </body>
+            </table>  
+            
+            <form method="POST"> {% csrf_token %} <!-- creates form -->
 
+                
+           
+                <button  href="{% url 'home' %}" class="btn btn-outline-info"   type="submit">End Tutoring</button>
+           </form>
+    
+        </body>
+        {% endif  %}
 </html>
