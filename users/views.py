@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.http import HttpResponse
-from .forms import UserRegistrationForm, addStudentForm
+from .forms import UserRegistrationForm, addStudentForm, reportForm
 from django.contrib.auth import logout
 from django import template
 from .models import studentQueue
+from .models import Reports
 import datetime
 import time
 from timeit import default_timer as timer
@@ -40,7 +41,7 @@ def logout_view(request):
     return render (request, 'users/logout.html')
 
 
-def studentView(request, student_id):
+def studentView(request, student_id):#allows to dynamically look up students in the queue based on their id
     
     student=get_object_or_404(studentQueue, student_id=student_id)
 
@@ -52,6 +53,21 @@ def studentView(request, student_id):
     }
 
     return render(request,'users/student.html',context)
+
+def reportView(request):#allows us to add reports about a given session
+
+    form=reportForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+
+    context = {
+
+        'form':form
+
+    }
+
+    return render (request, 'users/reports.html',context)
 
 
 

@@ -5,6 +5,7 @@ from django.forms import fields
 from .models import studentQueue
 from .models import Student
 from .models import Sessions
+from .models import Reports
 
 
 class UserRegistrationForm (UserCreationForm):
@@ -22,15 +23,15 @@ class StudentRegistrationForm (forms.ModelForm):
         fields=[ 'student_id','firstName','lastName','email','password']
 
 class addStudentForm(forms.ModelForm): #allows us to add students to queue
-
-   
+    
     class Meta:
         model=studentQueue
         fields = [
             'student_id',
             'firstName',
             'lastName',
-            'course'
+            'course',
+        
         ]
 
 class addSessionForm(forms.ModelForm): #allows us to add students to queue
@@ -43,4 +44,18 @@ class addSessionForm(forms.ModelForm): #allows us to add students to queue
             'studentName',
             'TutorName',
             'course'
+        ]
+
+class reportForm(forms.ModelForm):
+    report=forms.Textarea
+   
+    class Meta:
+        model=Reports
+        fields=[
+
+            'student_id',
+            'studentName',
+            'TutorName',
+            'course',
+            'report'
         ]

@@ -41,8 +41,9 @@
               
 
             {% if user.is_authenticated %} <!-- the code below only appears if user is logged-->
-                <h6>Need to Log out? <a class="ml-2" href="{% url 'logout' %}">Click here</a></h6>
-                <h6>Add Student To Queue? <a class="ml-2" href="{% url 'addStudent' %}">Click here</a></h6>
+                <h6><a class="ml-2" href="{% url 'logout' %}">Log out?</a></h6>
+                <h6><a class="ml-2" href="{% url 'addStudent' %}">Add Student To Queue?</a></h6>
+                <h6><a class="ml-2" href="{% url 'reports' %}">Report on a tutoring session?</a></h6>
             {% else %}
                 
                 <h6>  Already Registered? <a class="ml-2" href="{% url 'login' %}">Log in</a> </h6>

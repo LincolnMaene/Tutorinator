@@ -17,6 +17,15 @@ class Administrator(models.Model): #admin model
     email=models.EmailField()
     password=models.CharField(max_length=50)
 
+class Reports(models.Model): # model for reports
+    day=models.DateField(null=True, auto_now=True)
+    student_id=models.IntegerField()
+    studentName=models.CharField(max_length=250)
+    TutorName=models.CharField(max_length=250)
+    course=models.CharField(max_length=250) 
+    report=models.TextField(max_length=3000)
+
+
 class Sessions (models.Model):
     
 
