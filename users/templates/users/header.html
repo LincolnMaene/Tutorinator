@@ -1,0 +1,68 @@
+
+{% comment %}
+    
+    add
+    {% include "users/header.html" %}
+    to a page right below the opening <html> tag to include this header in it
+        
+    we can also pass data in to this template by using
+    {% include "users/header.html" with my_variable=something %}
+    if we want to hide certain things, such as hiding the home button when we are already on the home page
+    
+{% endcomment %}
+
+
+
+{% load user_tags %}
+
+<style>
+    .header {
+        padding: 40px;
+        text-align: center;
+        background: #7d8dc2;
+        color: white;
+        font-size: 30px;
+    }
+</style>
+
+<html>
+    <div class = "header">
+        
+        <h1>Welcome to Tutorinator!</h1>
+        <h3>This header can be reused on each page</h3>
+        <h5>Feel free to change how this looks, I'm not an artist.</h5>
+        
+        <div class="btn-group" role="group" aria-label="Test">
+            
+            <!--when hide_home="true", dont show the home button-->
+            {% if not hide_home %}
+                <a type="button" class="btn btn-primary" href="{% url 'home' %}">Home</a>
+            {% endif %}
+            <a type="button" class="btn btn-primary">other</a>
+            <a type="button" class="btn btn-primary">buttons</a>
+            <a type="button" class="btn btn-primary">here</a>
+            
+            {% if user.is_authenticated %}
+            
+                <!--user group exclusive buttons-->
+                {% if request.user|in_group:"Tutor"%}
+                    <a type="button" class="btn btn-primary">Tutor</a>
+                {% elif request.user|in_group:"Tutor Admin"%}
+                    <a type="button" class="btn btn-primary">Admin</a>
+                    <a type="button" class="btn btn-primary" href="{% url 'addStudent' %}">Add Student To Queue</a>
+                {% elif request.user|in_group:"Student"%}
+                    <a type="button" class="btn btn-primary">Student</a>
+                {% endif %}
+                
+                <!--logout-->
+                <a type="button" class="btn btn-primary" href="{% url 'logout' %}">Log Out</a>
+            {% else %}
+                <!--login/register-->
+                <a type="button" class="btn btn-primary" href="{% url 'login' %}">Log in</a>
+                <a type="button" class="btn btn-primary" href="{% url 'register' %}">Register</a>
+            {% endif %}
+            
+
+        </div>
+    </div>
+</html>
