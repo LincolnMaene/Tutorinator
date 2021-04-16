@@ -2,10 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.http import HttpResponse
-from .forms import UserRegistrationForm, addStudentForm, reportForm
+from .forms import UserRegistrationForm, addStudentForm, reportForm, ScheduleForm
 from django.contrib.auth import logout
 from django import template
-from .models import studentQueue, Reports
+from .models import studentQueue, Reports, Schedules
 from .models import Reports
 import datetime
 import time
@@ -26,7 +26,7 @@ def register (request): #function that returns view of register page
 
             form.save() #hashes pasword for security and save form
 
-            username=form.cleaned_data.get('username')
+            username=form.cleaned_data.get('username') # it is actually possible to get isolated data from a form, fantastic
             messages.success(request, f'Account Created1!')
             return redirect('login')
 
@@ -47,7 +47,7 @@ def studentView(request, student_id):#allows to dynamically look up students in 
 
     if request.method=="POST":
         student.delete()
-        return redirect('/')
+        return redirect('home')
     context={
         'student': student
     }
@@ -60,6 +60,8 @@ def reportView(request):#allows us to add reports about a given session
 
     if form.is_valid():
         form.save()
+        messages.success(request, f'Report Created1!')
+       
 
     context = {
 
@@ -68,6 +70,25 @@ def reportView(request):#allows us to add reports about a given session
     }
 
     return render (request, 'users/reports.html',context)
+
+
+def setSchedulesView(request): #allows us to add schedules
+
+    form=ScheduleForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        messages.success(request, f'Schedule Created1!')
+
+    context = {
+
+        'form':form
+
+    }
+
+
+
+    return render (request, 'users/setSchedules.html', context)
 
 
 
@@ -89,7 +110,7 @@ def addStudentView(request): #allows us to add students to queue
     return render (request, 'users/addStudent.html', context)
 
 
-def reportListView(request):
+def reportListView(request): # gives us a list of reports
 
     reports=Reports.objects.all()
 
@@ -100,6 +121,17 @@ def reportListView(request):
     }
 
     return render (request, 'users/reportList.html',context)
+
+def schedulesView(request):# gives us the schedules listed
+
+    schedules=Schedules.objects.all()
+
+    context={
+
+        'schedules':schedules
+    }
+
+    return render (request, 'users/schedules.html',context)
 
 def homeView(request): #home page view
 

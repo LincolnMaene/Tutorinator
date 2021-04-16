@@ -5,7 +5,7 @@ from django.forms import fields
 from .models import studentQueue
 from .models import Student
 from .models import Sessions
-from .models import Reports
+from .models import Reports, Schedules
 
 
 class UserRegistrationForm (UserCreationForm):
@@ -58,4 +58,19 @@ class reportForm(forms.ModelForm):
             'TutorName',
             'course',
             'report'
+        ]
+
+class ScheduleForm(forms.ModelForm):
+
+    schedule=forms.Textarea
+    class Meta:
+        model=Schedules
+        fields=[
+        
+        'course',
+        'firstName',
+        'lastName',
+        'tutorId',
+        'schedule'
+        
         ]

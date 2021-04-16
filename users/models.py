@@ -9,6 +9,17 @@ class Student(models.Model): #student model
     password=models.CharField(max_length=50)
     tutor=models.BooleanField(default=False) # is the student a tutor?
 
+class Schedules(models.Model): #should allow us to store schedules, ideally
+    course=models.CharField(max_length=250) 
+    firstName=models.CharField(max_length=250)
+    lastName=models.CharField(max_length=250)
+    tutorId=models.IntegerField()
+    schedule=models.TextField(max_length=3000)
+   
+
+
+
+
 
 class Administrator(models.Model): #admin model
     admin_id=models.IntegerField(unique=True)
