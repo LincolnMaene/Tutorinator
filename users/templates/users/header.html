@@ -29,8 +29,6 @@
     <div class = "header">
         
         <h1>Welcome to Tutorinator!</h1>
-        <h3>This header can be reused on each page</h3>
-        <h5>Feel free to change how this looks, I'm not an artist.</h5>
         
         <div class="btn-group" role="group" aria-label="Test">
             
@@ -38,9 +36,9 @@
             {% if not hide_home %}
                 <a type="button" class="btn btn-primary" href="{% url 'home' %}">Home</a>
             {% endif %}
-            <a type="button" class="btn btn-primary">other</a>
-            <a type="button" class="btn btn-primary">buttons</a>
-            <a type="button" class="btn btn-primary">here</a>
+            <a type="button" class="btn btn-primary">Other</a>
+            <a type="button" class="btn btn-primary">Buttons</a>
+            <a type="button" class="btn btn-primary">Here</a>
             
             {% if user.is_authenticated %}
             

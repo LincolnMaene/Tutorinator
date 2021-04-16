@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from .forms import UserRegistrationForm, addStudentForm, reportForm
 from django.contrib.auth import logout
 from django import template
-from .models import studentQueue
+from .models import studentQueue, Reports
 from .models import Reports
 import datetime
 import time
@@ -89,6 +89,17 @@ def addStudentView(request): #allows us to add students to queue
     return render (request, 'users/addStudent.html', context)
 
 
+def reportListView(request):
+
+    reports=Reports.objects.all()
+
+    context={
+
+        'reports': reports
+
+    }
+
+    return render (request, 'users/reportList.html',context)
 
 def homeView(request): #home page view
 
