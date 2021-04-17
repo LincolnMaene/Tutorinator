@@ -74,3 +74,9 @@ class ScheduleForm(forms.ModelForm):
         'schedule'
         
         ]
+
+class courseSearchForm(forms.Form):
+
+    course=forms.CharField(label='Your Course', max_length=300)
+
+    

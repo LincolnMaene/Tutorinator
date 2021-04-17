@@ -1,9 +1,10 @@
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.http import HttpResponse
-from .forms import UserRegistrationForm, addStudentForm, reportForm, ScheduleForm
-from django.contrib.auth import logout
+from .forms import UserRegistrationForm, addStudentForm, reportForm, ScheduleForm, courseSearchForm
+from django.contrib.auth import REDIRECT_FIELD_NAME, logout
 from django import template
 from .models import studentQueue, Reports, Schedules
 from .models import Reports
@@ -40,20 +41,68 @@ def logout_view(request):
     logout(request)
     return render (request, 'users/logout.html')
 
+def courseSearchView(request): #allow us to insert a course to search
+
+    
+
+    if request.method=='POST':
+
+        form=courseSearchForm(request.POST)
+        
+        if form.is_valid():
+            
+            course=form.cleaned_data.get('course') # we get the course name from the form            
+            messages.success(request, f'Course Entered!')
+
+            return HttpResponseRedirect("/courseLookUp/{course}/".format(course= course))
+
+    else:
+        form=courseSearchForm()
+
+
+    context={
+
+        'form':form
+    }
+
+    return render (request,'users/courseSearch.html',context)
+
 
 def studentView(request, student_id):#allows to dynamically look up students in the queue based on their id
     
-    student=get_object_or_404(studentQueue, student_id=student_id)
-
+    #student=get_object_or_404(studentQueue, student_id=student_id)
+    students=studentQueue.objects.filter(student_id=student_id)
     if request.method=="POST":
-        student.delete()
+        for student in students:
+            student.delete()
         return redirect('home')
     context={
-        'student': student
+        'students': students
     }
 
     return render(request,'users/student.html',context)
 
+def courseLookUpView(request, course):# gives us the schedules listed
+
+    schedules=Schedules.objects.filter(course=course)
+
+    context={
+
+        'schedules':schedules
+    }
+
+    return render (request, 'users/courseLookUp.html',context)
+
+def schedulesView(request):# gives us the schedules listed
+
+    schedules=Schedules.objects.all()
+
+    context={
+
+        'schedules':schedules
+    }
+
+    return render (request, 'users/schedules.html',context)
 def reportView(request):#allows us to add reports about a given session
 
     form=reportForm(request.POST or None)
@@ -98,7 +147,9 @@ def addStudentView(request): #allows us to add students to queue
 
     if form.is_valid():
 
+         
         form.save()
+        messages.success(request, f'student added!')
 
     context = {
 
@@ -122,16 +173,7 @@ def reportListView(request): # gives us a list of reports
 
     return render (request, 'users/reportList.html',context)
 
-def schedulesView(request):# gives us the schedules listed
 
-    schedules=Schedules.objects.all()
-
-    context={
-
-        'schedules':schedules
-    }
-
-    return render (request, 'users/schedules.html',context)
 
 def homeView(request): #home page view
 

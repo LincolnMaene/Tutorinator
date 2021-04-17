@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.shortcuts import redirect
 from users import views as user_views
 from django.contrib.auth import views as auth_views
 
@@ -25,6 +26,8 @@ urlpatterns = [
     path('addStudent/', user_views.addStudentView, name='addStudent'),
     path('reports/', user_views.reportView, name='reports'),
     path('reportsList/', user_views.reportListView, name='reportsList'),
+    path('courseSearch/', user_views.courseSearchView, name='courseSearch'),
+    path('courseLookUp/<str:course>/', user_views.courseLookUpView, name='courseLookUp'),
     path('setSchedules/', user_views.setSchedulesView, name='setSchedules'),
     path('schedules/', user_views.schedulesView, name='schedules'),
     path('student/<int:student_id>/', user_views.studentView, name='student'),

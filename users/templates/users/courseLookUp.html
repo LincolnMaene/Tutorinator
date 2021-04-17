@@ -22,107 +22,73 @@
 
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-            {% if request.user|in_group:"Tutor"%} <!--display a different welcome depending on user group-->
-                <h5>Tutor Homepage</h5>
-
-            {% elif request.user|in_group:"Tutor Admin"%}
-
-                <h5>Admin Homepage</h5>
-                <h6><a class="ml-2" href="{% url 'reportsList' %}">Read Reports</a></h6>        
-                <h6><a class="ml-2" href="{% url 'setSchedules' %}">Set Schedules</a></h6>    
-
-            
-            {% elif request.user|in_group:"Student"%}
-
-                <h5>Student Homepage</h5>
-            
-            {% else %}
-
-                <h5>Tutorinator 1.0</h5>
-
-            {% endif  %}
-
-            {% if request.user|in_group:"Tutor Admin" or request.user|in_group:"Tutor" %}
-
-            <h6><a class="ml-2" href="{% url 'schedules' %}">See Schedules</a></h6>    
-
-
-            {% endif  %}
-
-
-              
-
-            {% if user.is_authenticated %} <!-- the code below only appears if user is logged-->                             
-                <h6><a class="ml-2" href="{% url 'reports' %}">Report on a tutoring session?</a></h6>     
-                <h6><a class="ml-2" href="{% url 'courseSearch' %}">Search by Course?</a></h6>         
-    
-            
-            {% endif %}
-         
+           
 
             
 
         </head>
-
+        {% if request.user|in_group:"Tutor Admin" or request.user|in_group:"Tutor" %}
         <body>
             
-            <h1>Current List of Students:</h1> <!-- print the qeue of students here -->
+            <h1>List of Schedules:</h1> <!-- print the qeue of students here -->
 
             <table> <!--trying to print it as a table, for legibility -->
 
                 <tr>
-                    <th>ID</th> 
+                    <th>Course</th> 
                     <th></th>     <!--empty space between cols -->
                     <th></th> 
                     <th></th> 
-                    <th></th>                 
-                    <th>First Name</th>
+                    <th></th>            
+                    <th>First Name</th> 
                     <th></th>     <!--empty space between cols -->
                     <th></th> 
                     <th></th> 
-                    <th></th>  
+                    <th></th>            
                     <th>Last Name</th>
                     <th></th>     <!--empty space between cols -->
                     <th></th> 
                     <th></th> 
                     <th></th>  
-                    <th>Course</th>
+                    <th>ID</th>
                     <th></th>     <!--empty space between cols -->
                     <th></th> 
                     <th></th> 
                     <th></th>  
-                    <th>Time Left</th>
+                    <th>Schedule</th>
+                    
                 </tr>
 
-                {% for student in queue %}
+                {% for schedule in schedules %}
 
                 <tr> 
-                    <td> <li> <a class="ml-2" href="{% url 'student' student.student_id %}"> {{student.student_id}}</a> </li> </td>
+                    <td> <li> <a class="ml-2" href=""> {{schedule.course}}</a> </li> </td>
 
                     <td></td>  
                     <td></td>  
                     <td></td>  
                     <td></td>  
                    
-                    <td> {{student.firstName}} </td>
+                    <td> {{schedule.firstName}} </td>
                     <td></td>  
                     <td></td>  
                     <td></td>  
                     <td></td>  
 
-                    <td> {{student.lastName}} </td>
+                    <td> {{schedule.lastName}} </td>
                     <td></td>  
                     <td></td>  
                     <td></td>  
                     <td></td>  
 
-                    <td>  {{student.course}} </td>
+                    <td>  {{schedule.tutorId}} </td>
                     <td></td>  
                     <td></td>  
                     <td></td>  
                     <td></td>  
 
-                    <td>  {{student.timeLeft}} </td>
+                    <td>  {{schedule.schedule}} </td>
+                    
                 </tr>
                 
                     
@@ -132,5 +98,5 @@
       
             </table>    
         </body>
-
+        {% endif %}
 </html>

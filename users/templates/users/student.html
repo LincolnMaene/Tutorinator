@@ -86,7 +86,7 @@
                 </tr>
 
                 
-
+                {% for student in students %}
                 <tr> 
                     <td> {{student.student_id}} </td>
 
@@ -115,14 +115,14 @@
 
                     <td>  {{student.timeLeft}} </td>
                 </tr>
-                
+               
                     
-
+                {% endfor %}
               
 
       
             </table>  
-            
+           
             <form method="POST"> {% csrf_token %} <!-- creates form -->
 
                 
