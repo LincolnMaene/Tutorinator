@@ -1,6 +1,18 @@
 from django.db import models
 
+
+
+
 # Create your models here.
+
+class TimeOffRequest(models.Model): #time off request
+    firstName=models.CharField(max_length=250)
+    lastName=models.CharField(max_length=250)
+    tutorId=models.IntegerField()
+    schedule=models.CharField(max_length=3000)
+    approved=models.CharField(max_length=250, default='Pending')
+
+
 class Student(models.Model): #student model
     student_id=models.IntegerField(unique=True)
     firstName=models.CharField(max_length=250)
@@ -15,10 +27,6 @@ class Schedules(models.Model): #should allow us to store schedules, ideally
     lastName=models.CharField(max_length=250)
     tutorId=models.IntegerField()
     schedule=models.TextField(max_length=3000)
-   
-
-
-
 
 
 class Administrator(models.Model): #admin model

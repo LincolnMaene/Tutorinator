@@ -30,16 +30,12 @@
         {% if request.user|in_group:"Tutor Admin" or request.user|in_group:"Tutor" %}
         <body>
             
-            <h1>List of Schedules:</h1> <!-- print the qeue of students here -->
+            <h1>List of Requests:</h1> <!-- print the qeue of students here -->
 
             <table> <!--trying to print it as a table, for legibility -->
 
                 <tr>
-                    <th>Course</th> 
-                    <th></th>     <!--empty space between cols -->
-                    <th></th> 
-                    <th></th> 
-                    <th></th>            
+                  
                     <th>First Name</th> 
                     <th></th>     <!--empty space between cols -->
                     <th></th> 
@@ -56,18 +52,19 @@
                     <th></th> 
                     <th></th>  
                     <th>Schedule</th>
+                    <th></th>     <!--empty space between cols -->
+                    <th></th> 
+                    <th></th> 
+                    <th></th>  
+                    <th>Status</th>
                     
                 </tr>
 
                 {% for schedule in schedules %}
 
                 <tr> 
-                    <td> {{schedule.course}} </td>
+                    
 
-                    <td></td>  
-                    <td></td>  
-                    <td></td>  
-                    <td></td>  
                    
                     <td> {{schedule.firstName}} </td>
                     <td></td>  
@@ -81,14 +78,19 @@
                     <td></td>  
                     <td></td>  
 
-                    <td> <a class="ml-2" href=""> {{schedule.tutorId}}</a>  </td>
+                    <td>  <a class="ml-2" href=""> {{schedule.tutorId}}</a> </td>
                     <td></td>  
                     <td></td>  
                     <td></td>  
                     <td></td>  
 
                     <td>  {{schedule.schedule}} </td>
-                    
+                    <td></td>  
+                    <td></td>  
+                    <td></td>  
+                    <td></td>  
+                    <td>  {{schedule.approved}} </td>
+
                 </tr>
                 
                     

@@ -5,7 +5,7 @@ from django.forms import fields
 from .models import studentQueue
 from .models import Student
 from .models import Sessions
-from .models import Reports, Schedules
+from .models import Reports, Schedules, TimeOffRequest
 
 
 class UserRegistrationForm (UserCreationForm):
@@ -74,6 +74,21 @@ class ScheduleForm(forms.ModelForm):
         'schedule'
         
         ]
+
+class timeOffRequestForm(forms.ModelForm):
+    schedule=forms.CharField(widget=forms.Textarea, label='Insert Time and Reason for Request')
+    class Meta:
+        model=TimeOffRequest
+        fields=[
+        
+       
+        'firstName',
+        'lastName',
+        'tutorId',
+        'schedule'
+        
+        ]
+
 
 class courseSearchForm(forms.Form):
 

@@ -4,9 +4,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.http import HttpResponse
 from .forms import UserRegistrationForm, addStudentForm, reportForm, ScheduleForm, courseSearchForm
+from .forms import timeOffRequestForm
 from django.contrib.auth import REDIRECT_FIELD_NAME, logout
 from django import template
-from .models import studentQueue, Reports, Schedules
+from .models import studentQueue, Reports, Schedules, TimeOffRequest
 from .models import Reports
 import datetime
 import time
@@ -15,6 +16,69 @@ from timeit import default_timer as timer
 # Create your views here.
 
 queue=None # global variable for the queue of students
+
+def timeOffRequestListView(request):
+
+    schedules=TimeOffRequest.objects.all()
+
+    context={
+
+        'schedules':schedules
+    }
+
+
+    return render (request, 'users/timeOffRequestList.html',context)
+
+
+def schedulesView(request):# gives us the schedules listed
+
+    schedules=Schedules.objects.all()
+
+    context={
+
+        'schedules':schedules
+    }
+
+    return render (request, 'users/schedules.html',context)
+
+def timeOffRequestView(request):
+
+    form=timeOffRequestForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        messages.success(request, f'request Created1!')
+
+    context = {
+
+        'form':form
+
+    }
+
+
+
+    return render (request, 'users/timeOffRequest.html', context)
+
+
+def setSchedulesView(request): #allows us to add schedules
+
+    form=ScheduleForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        messages.success(request, f'Schedule Created1!')
+
+    context = {
+
+        'form':form
+
+    }
+
+
+
+    return render (request, 'users/setSchedules.html', context)
+
+
 
 
 def register (request): #function that returns view of register page
@@ -93,16 +157,7 @@ def courseLookUpView(request, course):# gives us the schedules listed
 
     return render (request, 'users/courseLookUp.html',context)
 
-def schedulesView(request):# gives us the schedules listed
 
-    schedules=Schedules.objects.all()
-
-    context={
-
-        'schedules':schedules
-    }
-
-    return render (request, 'users/schedules.html',context)
 def reportView(request):#allows us to add reports about a given session
 
     form=reportForm(request.POST or None)
@@ -121,23 +176,6 @@ def reportView(request):#allows us to add reports about a given session
     return render (request, 'users/reports.html',context)
 
 
-def setSchedulesView(request): #allows us to add schedules
-
-    form=ScheduleForm(request.POST or None)
-
-    if form.is_valid():
-        form.save()
-        messages.success(request, f'Schedule Created1!')
-
-    context = {
-
-        'form':form
-
-    }
-
-
-
-    return render (request, 'users/setSchedules.html', context)
 
 
 
