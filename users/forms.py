@@ -22,6 +22,20 @@ class StudentRegistrationForm (forms.ModelForm):
         model=Student
         fields=[ 'student_id','firstName','lastName','email','password']
 
+
+class tutorStudentForm(forms.ModelForm): #allows us to tuttor students to queue
+    
+    class Meta:
+        model=studentQueue
+        fields = [
+            'student_id',
+            'firstName',
+            'lastName',
+            'course',
+            'inQueue'
+        
+        ]
+
 class addStudentForm(forms.ModelForm): #allows us to add students to queue
     
     class Meta:

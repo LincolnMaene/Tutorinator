@@ -3,12 +3,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.http import HttpResponse
-from .forms import UserRegistrationForm, addStudentForm, reportForm, ScheduleForm, courseSearchForm
+from .forms import (UserRegistrationForm, addStudentForm, 
+reportForm, ScheduleForm, courseSearchForm, tutorStudentForm)
 from .forms import timeOffRequestForm
 from django.contrib.auth import REDIRECT_FIELD_NAME, logout
 from django import template
 from .models import studentQueue, Reports, Schedules, TimeOffRequest
 from .models import Reports
+from django.views.generic import UpdateView
 import datetime
 import time
 from timeit import default_timer as timer
@@ -16,6 +18,13 @@ from timeit import default_timer as timer
 # Create your views here.
 
 queue=None # global variable for the queue of students
+
+
+class tutorStudentView(UpdateView):
+    model=studentQueue
+    fields=['student_id','firstName','lastName','course','inQueue']
+
+
 
 def timeOffRequestListView(request):
 
@@ -132,10 +141,24 @@ def courseSearchView(request): #allow us to insert a course to search
     return render (request,'users/courseSearch.html',context)
 
 
-def studentView(request, student_id):#allows to dynamically look up students in the queue based on their id
+def studentView(request, student_id):#allows to tutor students
     
-    #student=get_object_or_404(studentQueue, student_id=student_id)
-    students=studentQueue.objects.filter(student_id=student_id)
+    students=get_object_or_404(studentQueue, student_id=student_id)
+    #students=studentQueue.objects.filter(student_id=student_id)
+
+    form=tutorStudentForm(request.POST or None, instance = students)
+
+    if form.is_valid():
+        form.save()
+        #return HttpResponseRedirect("home")
+
+    context={
+
+        'students': students,
+        'form':form
+    }
+
+    '''
     if request.method=="POST":
         for student in students:
             student.delete()
@@ -143,8 +166,8 @@ def studentView(request, student_id):#allows to dynamically look up students in 
     context={
         'students': students
     }
-
-    return render(request,'users/student.html',context)
+    '''
+    return render(request,'users/tutorStudent.html',context)
 
 def courseLookUpView(request, course):# gives us the schedules listed
 
@@ -181,13 +204,29 @@ def reportView(request):#allows us to add reports about a given session
 
 def addStudentView(request): #allows us to add students to queue
 
+    today=datetime.datetime.now()# used to ensure only students added to the queue today are displayed
     form=addStudentForm(request.POST or None)
 
-    if form.is_valid():
+    queue=studentQueue.objects.filter(day=today, inQueue=True)
+    
 
-         
-        form.save()
-        messages.success(request, f'student added!')
+    repeat=False
+        
+   
+
+    if form.is_valid():   
+
+        student_id=form.cleaned_data.get('student_id')   
+        
+                 
+        for student in queue:
+            
+            if student.student_id==17:
+                repeat=True
+
+        if repeat==False:
+            form.save()
+            messages.success(request, f'student added!')
 
     context = {
 
@@ -216,7 +255,7 @@ def reportListView(request): # gives us a list of reports
 def homeView(request): #home page view
 
     today=datetime.datetime.now()# used to ensure only students added to the queue today are displayed
-    queue=studentQueue.objects.filter(day=today)
+    queue=studentQueue.objects.filter(day=today, inQueue=True)
     
     timeLeft=datetime.timedelta(0,0,0,0,30,0,0) # how much time a student has left, to later be set by admin
 
