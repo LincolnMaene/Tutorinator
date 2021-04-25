@@ -22,13 +22,23 @@ class StudentRegistrationForm (forms.ModelForm):
         model=Student
         fields=[ 'student_id','firstName','lastName','email','password']
 
+class ModifyScheduleForm(forms.ModelForm):
+    class Meta:
+        model=Schedules
+        fields=[
+            
+        'course',
+        'firstName',
+        'lastName',
+        'schedule'
+        ]
 
 class tutorStudentForm(forms.ModelForm): #allows us to tuttor students to queue
     
     class Meta:
         model=studentQueue
         fields = [
-            'student_id',
+            
             'firstName',
             'lastName',
             'course',
@@ -77,6 +87,7 @@ class reportForm(forms.ModelForm):
 class ScheduleForm(forms.ModelForm):
 
     schedule=forms.Textarea
+    
     class Meta:
         model=Schedules
         fields=[

@@ -33,6 +33,7 @@ urlpatterns = [
     path('setSchedules/', user_views.setSchedulesView, name='setSchedules'),
     path('schedules/', user_views.schedulesView, name='schedules'),
     path('student/<int:student_id>/', user_views.studentView, name='student'),
+    path('modifySchedule/<int:id>/', user_views.modifyScheduleView, name='modifySchedule'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html') , name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html') , name='logout'),
     

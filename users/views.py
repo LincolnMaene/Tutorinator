@@ -4,7 +4,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.http import HttpResponse
 from .forms import (UserRegistrationForm, addStudentForm, 
-reportForm, ScheduleForm, courseSearchForm, tutorStudentForm)
+reportForm, ScheduleForm, courseSearchForm, tutorStudentForm,
+ModifyScheduleForm)
 from .forms import timeOffRequestForm
 from django.contrib.auth import REDIRECT_FIELD_NAME, logout
 from django import template
@@ -169,6 +170,22 @@ def studentView(request, student_id):#allows to tutor students
     '''
     return render(request,'users/tutorStudent.html',context)
 
+def modifyScheduleView(request, id):# gives us the schedules listed
+
+    schedules=get_object_or_404(Schedules, id=id)
+    
+    form=ModifyScheduleForm(request.POST or None, instance = schedules)
+
+    if form.is_valid():
+       form.save()
+
+    context={
+
+        'form':form
+    }
+
+    return render (request, 'users/modifySchedule.html',context)
+
 def courseLookUpView(request, course):# gives us the schedules listed
 
     schedules=Schedules.objects.filter(course=course)
@@ -179,6 +196,8 @@ def courseLookUpView(request, course):# gives us the schedules listed
     }
 
     return render (request, 'users/courseLookUp.html',context)
+
+
 
 
 def reportView(request):#allows us to add reports about a given session
@@ -204,13 +223,13 @@ def reportView(request):#allows us to add reports about a given session
 
 def addStudentView(request): #allows us to add students to queue
 
-    today=datetime.datetime.now()# used to ensure only students added to the queue today are displayed
+    today=datetime.datetime.now()# used to ensure only students added to the queue today are compated with
     form=addStudentForm(request.POST or None)
 
-    queue=studentQueue.objects.filter(day=today, inQueue=True)
+    queue=studentQueue.objects.filter(day=today, inQueue=True)#get all the stds in the queue right now
     
 
-    repeat=False
+    repeat=False # the idea is to prevent students from signing up twice on the same list
         
    
 
@@ -219,7 +238,7 @@ def addStudentView(request): #allows us to add students to queue
         student_id=form.cleaned_data.get('student_id')   
         
                  
-        for student in queue:
+        for student in queue: #try to find out if anyone in the queue has the same id
             
             if student.student_id==17:
                 repeat=True

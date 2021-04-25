@@ -62,6 +62,12 @@
                 {% for schedule in schedules %}
 
                 <tr> 
+
+                    <td> <a class="ml-2" href="{% url 'modifySchedule' schedule.id %}"> {{schedule.id}}</a>  </td>
+                    <td></td>  
+                    <td></td>  
+                    <td></td>  
+                    <td></td>
                     <td> {{schedule.course}} </td>
 
                     <td></td>  
@@ -81,7 +87,7 @@
                     <td></td>  
                     <td></td>  
 
-                    <td> <a class="ml-2" href=""> {{schedule.tutorId}}</a>  </td>
+                    <td>  {{schedule.tutorId}} </td>
                     <td></td>  
                     <td></td>  
                     <td></td>  
