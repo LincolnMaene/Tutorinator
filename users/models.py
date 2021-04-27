@@ -65,6 +65,7 @@ class studentQueue (models.Model):
     student_id=models.IntegerField()
     firstName=models.CharField(max_length=250)
     lastName=models.CharField(max_length=250)
+    tutorname=models.CharField(max_length=250, null=True)
     course=models.CharField(max_length=250) #which course the student needs help with
     inQueue=models.BooleanField(default=True) #whetehr or not the student is in the queue or has been removed
     sessionBeginTime=models.TimeField(null=True) #when the tutoring session begun

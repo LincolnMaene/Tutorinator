@@ -42,7 +42,8 @@ class tutorStudentForm(forms.ModelForm): #allows us to tuttor students to queue
             'firstName',
             'lastName',
             'course',
-            'inQueue'
+            'inQueue',
+            'tutorname'
         
         ]
 

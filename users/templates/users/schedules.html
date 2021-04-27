@@ -63,11 +63,15 @@
 
                 <tr> 
 
+                    {% if request.user|in_group:"Tutor Admin" %}
+
                     <td> <a class="ml-2" href="{% url 'modifySchedule' schedule.id %}"> {{schedule.id}}</a>  </td>
                     <td></td>  
                     <td></td>  
                     <td></td>  
                     <td></td>
+                    {% endif %}
+
                     <td> {{schedule.course}} </td>
 
                     <td></td>  

@@ -289,3 +289,19 @@ def homeView(request): #home page view
     }
     
     return render (request, 'users/home.html', queueContext)
+
+def tutoringRecordView(request): #home page view
+
+    
+    queue=studentQueue.objects.all()
+    
+    queue.order_by('date')
+    
+        
+    queueContext={ #allows us to use python variables in the html template
+
+        'queue':queue,
+        
+    }
+    
+    return render (request, 'users/tutoringRecord.html', queueContext)

@@ -22,49 +22,20 @@
 
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-            {% if request.user|in_group:"Tutor"%} <!--display a different welcome depending on user group-->
-                <h5>Tutor Homepage</h5>
-                <h6><a class="ml-2" href="{% url 'timeOffRequest' %}">Request Time off</a> <a class="ml-2" href="{% url 'timeOffRequestList' %}">View Time off Requests</a> </h6>
+            {% if request.user|in_group:"Tutor Admin"%}
 
-            {% elif request.user|in_group:"Tutor Admin"%}
-
-                <h5>Admin Homepage</h5>
-                <h6><a class="ml-2" href="{% url 'reportsList' %}">Read Reports</a>     <a class="ml-2" href="{% url 'setSchedules' %}">Set Schedules</a>       
-                    <a class="ml-2" href="{% url 'timeOffRequestList' %}">Read Time off Requests</a>    <a class="ml-2" href="">See Tutoring Record</a> </h6>       
-                   
-
+                <h5>Tutoring Record Page</h5>            
             
-            {% elif request.user|in_group:"Student"%}
-
-                <h5>Student Homepage</h5>
-            
-            {% else %}
-
-                <h5>Tutorinator 1.0</h5>
 
             {% endif  %}
 
-            {% if request.user|in_group:"Tutor Admin" or request.user|in_group:"Tutor" %}
-
-            <h6><a class="ml-2" href="{% url 'schedules' %}">See Schedules</a></h6>    
-
-
-            {% endif  %}
-
-
-              
-
-            {% if user.is_authenticated %} <!-- the code below only appears if user is logged-->                             
-                <h6><a class="ml-2" href="{% url 'reports' %}">Report on a tutoring session?</a>        <a class="ml-2" href="{% url 'courseSearch' %}">Search by Course?</a></h6>            
-                
-    
-            
-            {% endif %}
-         
+               
 
             
 
         </head>
+        
+        {% if request.user|in_group:"Tutor Admin"%}
 
         <body>
             
@@ -73,6 +44,11 @@
             <table> <!--trying to print it as a table, for legibility -->
 
                 <tr>
+                    <th>Date</th> 
+                    <th></th>     <!--empty space between cols -->
+                    <th></th> 
+                    <th></th> 
+                    <th></th>    
                     <th>ID</th> 
                     <th></th>     <!--empty space between cols -->
                     <th></th> 
@@ -94,12 +70,23 @@
                     <th></th> 
                     <th></th>  
                     <th>Time Left</th>
+                    <th></th>     <!--empty space between cols -->
+                    <th></th> 
+                    <th></th> 
+                    <th></th>  
+                    <th>Tutor</th>
                 </tr>
 
                 {% for student in queue %}
 
                 <tr> 
-                    <td> <li> <a class="ml-2" href="{% url 'student' student.student_id %}"> {{student.student_id}}</a> </li> </td>
+                    <td> {{student.date}} </td>
+
+                    <td></td>  
+                    <td></td>  
+                    <td></td>  
+                    <td></td>  
+                    <td> {{student.student_id}} </td>
 
                     <td></td>  
                     <td></td>  
@@ -125,6 +112,11 @@
                     <td></td>  
 
                     <td>  {{student.timeLeft}} </td>
+                    <td></td>  
+                    <td></td>  
+                    <td></td>  
+                    <td></td>  
+                    <td>  {{student.tutorname}} </td>
                 </tr>
                 
                     
@@ -134,5 +126,6 @@
       
             </table>    
         </body>
+        {% endif  %}
 
 </html>
