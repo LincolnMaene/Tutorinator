@@ -101,6 +101,23 @@ class ScheduleForm(forms.ModelForm):
         
         ]
 
+
+
+class timeOffAcceptForm(forms.ModelForm):
+    schedule=forms.CharField(widget=forms.Textarea, label='Insert Time and Reason for Request')
+    class Meta:
+        model=TimeOffRequest
+        fields=[
+        
+       
+        'firstName',
+        'lastName',
+        'schedule',
+        'approved'
+        
+        ]
+
+
 class timeOffRequestForm(forms.ModelForm):
     schedule=forms.CharField(widget=forms.Textarea, label='Insert Time and Reason for Request')
     class Meta:

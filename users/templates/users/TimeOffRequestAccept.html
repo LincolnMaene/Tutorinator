@@ -53,10 +53,10 @@
             
 
         </head>
-        {% if request.user|in_group:"Tutor Admin" %}
+        {% request.user|in_group:"Tutor Admin" %}
         <body>
             
-            <h1>Modify Schedule</h1> <!-- print the qeue of students here -->
+            <h1>Accept Time Off Request</h1> <!-- print the qeue of students here -->
 
            
            

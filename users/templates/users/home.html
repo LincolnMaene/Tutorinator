@@ -30,7 +30,9 @@
 
                 <h5>Admin Homepage</h5>
                 <h6><a class="ml-2" href="{% url 'reportsList' %}">Read Reports</a>     <a class="ml-2" href="{% url 'setSchedules' %}">Set Schedules</a>       
-                    <a class="ml-2" href="{% url 'timeOffRequestList' %}">Read Time off Requests</a>    <a class="ml-2" href="">See Tutoring Record</a> </h6>       
+                    <a class="ml-2" href="{% url 'timeOffRequestList' %}">Read Time off Requests</a>   
+                    
+                    <a class="ml-2" href="{% url 'admin:index' %}">Admininstration</a> <a class="ml-2" href="{% url 'tutoringRecord' %}">See Tutoring Record</a> </h6>       
                    
 
             
@@ -99,7 +101,7 @@
                 {% for student in queue %}
 
                 <tr> 
-                    <td> <li> <a class="ml-2" href="{% url 'student' student.student_id %}"> {{student.student_id}}</a> </li> </td>
+                    <td> <a class="ml-2" href="{% url 'student' student.student_id %}"> {{student.student_id}}</a> </td>
 
                     <td></td>  
                     <td></td>  

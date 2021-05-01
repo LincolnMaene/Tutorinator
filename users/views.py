@@ -5,11 +5,14 @@ from django.contrib import messages
 from django.http import HttpResponse
 from .forms import (UserRegistrationForm, addStudentForm, 
 reportForm, ScheduleForm, courseSearchForm, tutorStudentForm,
-ModifyScheduleForm)
+ModifyScheduleForm, timeOffAcceptForm)
 from .forms import timeOffRequestForm
 from django.contrib.auth import REDIRECT_FIELD_NAME, logout
 from django import template
-from .models import studentQueue, Reports, Schedules, TimeOffRequest
+from .models import( studentQueue, 
+Reports, Schedules, TimeOffRequest,
+TimeOffRequest
+)
 from .models import Reports
 from django.views.generic import UpdateView
 import datetime
@@ -185,6 +188,25 @@ def modifyScheduleView(request, id):# gives us the schedules listed
     }
 
     return render (request, 'users/modifySchedule.html',context)
+
+def timeOffRequestAcceptView(request, id):
+
+    schedules=get_object_or_404(TimeOffRequest, id=id)
+
+    form=timeOffAcceptForm(request.POST or None, instance = schedules)
+
+    if form.is_valid():
+       form.save()
+
+    context={
+
+        'form':form
+    }
+
+
+
+    return render (request, 'users/modifySchedule.html',context)
+
 
 def courseLookUpView(request, course):# gives us the schedules listed
 

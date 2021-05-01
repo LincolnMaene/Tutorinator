@@ -27,7 +27,7 @@
             
 
         </head>
-        {% if request.user|in_group:"Tutor Admin" or request.user|in_group:"Tutor" %}
+        {% if user.is_authenticated %}
         <body>
             
             <h1>List of Schedules:</h1> <!-- print the qeue of students here -->
@@ -62,7 +62,7 @@
                 {% for schedule in schedules %}
 
                 <tr> 
-                    <td> <li> <a class="ml-2" href=""> {{schedule.course}}</a> </li> </td>
+                    <td>  <a class="ml-2" href=""> {{schedule.course}}</a>  </td>
 
                     <td></td>  
                     <td></td>  
