@@ -105,7 +105,7 @@ def register (request): #function that returns view of register page
             form.save() #hashes pasword for security and save form
 
             username=form.cleaned_data.get('username') # it is actually possible to get isolated data from a form, fantastic
-            messages.success(request, f'Account Created1!')
+            messages.success(request, f'Account Created!')
             return redirect('login')
 
     else:
