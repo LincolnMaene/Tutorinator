@@ -20,9 +20,9 @@ from users import views as user_views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('', auth_views.LoginView.as_view(template_name='users/login.html'),name='login'),
-    path('home/', user_views.homeView, name='home'),
+    path('', user_views.homeOrLoginView),
     #path('', user_views.homeView, name='home'),
+    path('home/', user_views.homeView, name='home'),
     path('admin/', admin.site.urls, name = 'admin'),
     path('register/', user_views.register, name='register'),
     path('addStudent/', user_views.addStudentView, name='addStudent'),
@@ -38,7 +38,7 @@ urlpatterns = [
     path('student/<int:student_id>/', user_views.studentView, name='student'),
     path('modifySchedule/<int:id>/', user_views.modifyScheduleView, name='modifySchedule'),
     path('TimeOffRequestAccept/<int:id>/', user_views.timeOffRequestAcceptView, name='TimeOffRequestAccept'),
-    #path('login/', auth_views.LoginView.as_view(template_name='users/login.html') , name='login'),
+    path('login/', auth_views.LoginView.as_view(template_name='users/login.html') , name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html') , name='logout'),
     
 ]

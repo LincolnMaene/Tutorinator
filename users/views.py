@@ -18,6 +18,7 @@ from django.views.generic import UpdateView
 import datetime
 import time
 from timeit import default_timer as timer
+from django.contrib.auth import views as auth_views
 
 # Create your views here.
 
@@ -42,6 +43,12 @@ def timeOffRequestListView(request):
 
     return render (request, 'users/timeOffRequestList.html',context)
 
+def homeOrLoginView(request): # redirect the user to either the login (if they havent yet) or the home page (if theyre logged in)
+    if (request.user.is_authenticated):
+        return (homeView(request))
+    else:
+        return(auth_views.LoginView.as_view(template_name='users/login.html')(request))
+        
 
 def schedulesView(request):# gives us the schedules listed
 
@@ -60,7 +67,7 @@ def timeOffRequestView(request):
 
     if form.is_valid():
         form.save()
-        messages.success(request, f'request Created1!')
+        messages.success(request, f'Request Created!')
 
     context = {
 
@@ -79,7 +86,7 @@ def setSchedulesView(request): #allows us to add schedules
 
     if form.is_valid():
         form.save()
-        messages.success(request, f'Schedule Created1!')
+        messages.success(request, f'Schedule Created!')
 
     context = {
 
