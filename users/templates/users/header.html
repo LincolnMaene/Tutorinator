@@ -14,6 +14,7 @@
 
 
 {% load user_tags %}
+{% load static %}
 
 <style>
     .header {
@@ -25,6 +26,7 @@
         background-image: url('https://www.zastavki.com/pictures/1680x1050/2010/Archive_Miscellaneous_Multi-coloured_pencils_022988_.jpg');
         background-repeat: no-repeat;
         background-size: 100%;
+        
     }
 </style>
 
@@ -32,7 +34,7 @@
     <div class = "header">
         
         <h1>Welcome to Tutorinator!</h1>
-        
+        <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
         <div class="btn-group" role="group" aria-label="Test">
             
             <!--when hide_home="true", dont show the home button-->
