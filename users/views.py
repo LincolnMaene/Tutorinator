@@ -30,7 +30,6 @@ class tutorStudentView(UpdateView):
     fields=['student_id','firstName','lastName','course','inQueue']
 
 
-
 def timeOffRequestListView(request):
 
     schedules=TimeOffRequest.objects.all()
@@ -48,7 +47,6 @@ def homeOrLoginView(request): # redirect the user to either the login (if they h
         return (homeView(request))
     else:
         return(auth_views.LoginView.as_view(template_name='users/login.html')(request))
-        
 
 def schedulesView(request):# gives us the schedules listed
 
@@ -79,7 +77,6 @@ def timeOffRequestView(request):
 
     return render (request, 'users/timeOffRequest.html', context)
 
-
 def setSchedulesView(request): #allows us to add schedules
 
     form=ScheduleForm(request.POST or None)
@@ -97,9 +94,6 @@ def setSchedulesView(request): #allows us to add schedules
 
 
     return render (request, 'users/setSchedules.html', context)
-
-
-
 
 def register (request): #function that returns view of register page
 
@@ -150,7 +144,6 @@ def courseSearchView(request): #allow us to insert a course to search
     }
 
     return render (request,'users/courseSearch.html',context)
-
 
 def studentView(request, student_id):#allows to tutor students
     
@@ -214,7 +207,6 @@ def timeOffRequestAcceptView(request, id):
 
     return render (request, 'users/modifySchedule.html',context)
 
-
 def courseLookUpView(request, course):# gives us the schedules listed
 
     schedules=Schedules.objects.filter(course=course)
@@ -225,9 +217,6 @@ def courseLookUpView(request, course):# gives us the schedules listed
     }
 
     return render (request, 'users/courseLookUp.html',context)
-
-
-
 
 def reportView(request):#allows us to add reports about a given session
 
@@ -245,10 +234,6 @@ def reportView(request):#allows us to add reports about a given session
     }
 
     return render (request, 'users/reports.html',context)
-
-
-
-
 
 def addStudentView(request): #allows us to add students to queue
 
@@ -285,7 +270,6 @@ def addStudentView(request): #allows us to add students to queue
 
     return render (request, 'users/addStudent.html', context)
 
-
 def reportListView(request): # gives us a list of reports
 
     reports=Reports.objects.all()
@@ -297,8 +281,6 @@ def reportListView(request): # gives us a list of reports
     }
 
     return render (request, 'users/reportList.html',context)
-
-
 
 def homeView(request): #home page view
 
@@ -314,7 +296,6 @@ def homeView(request): #home page view
     queueContext={ #allows us to use python variables in the html template
 
         'queue':queue,
-        'today':today
     }
     
     return render (request, 'users/home.html', queueContext)
