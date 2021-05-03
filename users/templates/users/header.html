@@ -45,7 +45,8 @@
             {% if user.is_authenticated %}
                 <a type="button" class="btn btn-info" href="{% url 'courseSearch' %}">Search by Course</a>
                 <a type="button" class="btn btn-info" href="{% url 'addStudent' %}">Add Student To Queue</a>
-                <a type="button" class="btn btn-info" href="{% url 'reports' %}">Report on a tutoring session</a>
+                <a type="button" class="btn btn-info" href="{% url 'queue' %}">View Queue</a>
+                <a type="button" class="btn btn-info" href="{% url 'reports' %}">Tutoring Session Report</a>
                 
                 <!--logout for authenticated users-->
                 <a type="button" class="btn btn-info" href="{% url 'logout' %}">Log Out</a>
@@ -69,12 +70,12 @@
                     <a type="button" class="btn btn-info" href="{% url 'timeOffRequestList' %}">View Time off Requests</a>
                     <a type="button" class="btn btn-info" href="{% url 'schedules' %}">See Schedules</a>
                 {% elif request.user|in_group:"Tutor Admin"%}
-                    <a type="button" class="btn btn-info" href="{% url 'reportsList' %}">Read Reports</a>
                     <a type="button" class="btn btn-info" href="{% url 'setSchedules' %}">Set Schedules</a>       
-                    <a type="button" class="btn btn-info" href="{% url 'schedules' %}">See Schedules</a>
-                    <a type="button" class="btn btn-info" href="{% url 'timeOffRequestList' %}">Read Time off Requests</a>   
+                    <a type="button" class="btn btn-info" href="{% url 'schedules' %}">View Schedules</a>
+                    <a type="button" class="btn btn-info" href="{% url 'timeOffRequestList' %}">Time Off Requests</a>   
+                    <a type="button" class="btn btn-info" href="{% url 'tutoringRecord' %}">Tutoring Record</a>
+                    <a type="button" class="btn btn-info" href="{% url 'reportsList' %}">Read Reports</a>
                     <a type="button" class="btn btn-info" href="{% url 'admin:index' %}">Admininstration</a>
-                    <a type="button" class="btn btn-info" href="{% url 'tutoringRecord' %}">See Tutoring Record</a>
                 {% endif %}
 
             </div>

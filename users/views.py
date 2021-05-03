@@ -315,3 +315,28 @@ def tutoringRecordView(request): #home page view
     }
     
     return render (request, 'users/tutoringRecord.html', queueContext)
+    
+
+def queueView(request): #queue page view
+    #show the queue page here
+
+    today=datetime.datetime.now()# used to ensure only students added to the queue today are displayed
+    queue = studentQueue.objects.filter(day = today, inQueue = True)
+    
+    queueContext = { 'queue':queue }
+    
+    return render(request, 'users/queue.html', queueContext)
+    
+    #if tutor filter their current queue so they can see what they have to do
+    #if request.user.groups.filter(name='Tutor').exists():
+    #    queue = studentQueue.objects.filter(day = today, inQueue = True)
+
+    #if student filter to show their currently signed up for sessions
+    #if request.user.groups.filter(name = 'Student'):
+    #   queue = studentQueue.objects.filter(day = today, inQueue = True)   
+
+    #if admin allow swapping between either view?
+    #if request.user.groups.filter(name = 'Admin'):
+    #    queue = studentQueue.objects.filter(day = today, inQueue = True)    
+        
+    

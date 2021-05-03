@@ -4,15 +4,6 @@
 <html>
 {% include "users/header.html" %}
 <!-- trying to make sure page is centered-->
-    <style>
-        
-        .content { 
-          max-width: 1080px;
-          margin: auto;
-        }
-
-        
-    </style>
     
 
     <div class = "content">
@@ -22,73 +13,19 @@
             <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-            {% if request.user|in_group:"Tutor"%} <!--display a different welcome depending on user group-->
-                <h5>Tutor Homepage</h5>
-                <h6>
-                    <!--
-                    <a class="ml-2" href="{% url 'timeOffRequest' %}">Request Time off</a>
-                    <a class="ml-2" href="{% url 'timeOffRequestList' %}">View Time off Requests</a>
-                    -->
-                </h6>
-
-            {% elif request.user|in_group:"Tutor Admin"%}
-
-                <h5>Admin Homepage</h5>
-                <h6>
-                    <!--
-                    <a class="ml-2" href="{% url 'reportsList' %}">Read Reports</a>
-                    <a class="ml-2" href="{% url 'setSchedules' %}">Set Schedules</a>       
-                    <a class="ml-2" href="{% url 'timeOffRequestList' %}">Read Time off Requests</a>   
-                    <a class="ml-2" href="{% url 'admin:index' %}">Admininstration</a>
-                    <a class="ml-2" href="{% url 'tutoringRecord' %}">See Tutoring Record</a>
-                   -->
-                </h6>       
-                   
-
-            
-            {% elif request.user|in_group:"Student"%}
-
-                <h5>Student Homepage</h5>
-            
-            {% else %}
-
-                <h5>Tutorinator 1.0</h5>
-
-            {% endif  %}
-
-            {% if request.user|in_group:"Tutor Admin" or request.user|in_group:"Tutor" %}
-
-            <h6>
-                <!--
-                <a class="ml-2" href="{% url 'schedules' %}">See Schedules</a>
-                -->
-            </h6>    
-
-
-            {% endif  %}
-
-
-              
-
-            {% if user.is_authenticated %} <!-- the code below only appears if user is logged-->                             
-                <h6>
-                    <!--
-                    <a class="ml-2" href="{% url 'reports' %}">Report on a tutoring session?</a>
-                    <a class="ml-2" href="{% url 'courseSearch' %}">Search by Course?</a>
-                    -->
-                </h6>            
-                
-    
-            
-            {% endif %}
-         
-
-            
-
         </head>
 
         <body>
-            {% include "users/studentList.html" with queue=queue %}
+            <div style="margin:auto; width: 50%;">
+                <br>
+                <h1 style="text-align:center">Tutoring Center Announcements:</h1>
+                <br>
+                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id varius velit, auctor dapibus est. Nunc enim urna, mollis in turpis vitae, auctor vulputate ligula. Phasellus aliquet commodo elit non volutpat. Cras ex nisl, lobortis eget varius at, vestibulum nec orci. Nam fermentum purus non ipsum lacinia accumsan. Suspendisse rhoncus lectus nec magna rutrum, eget sagittis libero volutpat. Pellentesque lacinia scelerisque enim nec pretium.  </p>
+                <p> Sed ac commodo eros, eu dapibus elit. Praesent ut turpis quis purus suscipit porta ut eget ex. Integer non risus posuere, pharetra libero sit amet, scelerisque nisl. Fusce feugiat pellentesque nibh, et semper lorem porttitor vel. Donec sollicitudin orci facilisis ligula consectetur, ut dapibus odio laoreet. Donec urna eros, dictum eu nulla consequat, pellentesque pellentesque nunc. Ut finibus, est sed varius ullamcorper, nibh elit accumsan ipsum, ut fermentum velit ante congue quam. Etiam id dictum massa. Ut quis tellus lobortis, rutrum est eu, egestas erat. Phasellus eget aliquam est. Donec auctor libero at placerat hendrerit. Quisque eleifend viverra consectetur.  </p>
+                <p> Quisque cursus at velit eu iaculis. Pellentesque tempus ante felis, nec malesuada ipsum hendrerit nec. Pellentesque a auctor nisl. Sed imperdiet tempor ligula, eget gravida felis commodo sit amet. Nulla varius auctor nulla ac facilisis. Proin purus elit, luctus eu ullamcorper vel, gravida id enim. Nam quis consequat magna. Fusce ligula mauris, feugiat a bibendum eget, ornare eget tellus. Nulla pellentesque varius urna, ac sagittis risus finibus eget. Vestibulum ut metus arcu. Proin viverra sem auctor interdum gravida. Mauris venenatis est vitae lorem venenatis imperdiet eget non est. Phasellus tempor rutrum metus ut rutrum.  </p>
+                <p> Sed a mi libero. Quisque ultricies sapien finibus magna molestie eleifend. Etiam maximus nisl ut eleifend euismod. Suspendisse risus mi, tristique in fermentum vulputate, sollicitudin a dui. Aliquam non mauris sagittis, tincidunt erat eu, blandit diam. Nulla vitae congue nibh. Duis quis odio quis lectus ultricies varius nec sagittis orci. Phasellus dapibus neque sed diam viverra malesuada.  </p>
+                <p> Sed tempor aliquam eros id posuere. Etiam at ligula sem. Quisque elit leo, euismod sit amet massa sit amet, ullamcorper viverra mi. Donec turpis mauris, tristique et sodales sed, consequat ut tellus. Aenean et eros nulla. Maecenas eu finibus est, ut euismod nisl. In magna est, molestie sed dui commodo, laoreet rutrum dui. Praesent odio risus, auctor a malesuada non, sodales id urna. Phasellus ut sollicitudin turpis.  </p>
+            </div>
         </body>
 
 </html>
