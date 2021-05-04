@@ -78,18 +78,24 @@ def timeOffRequestView(request):
     return render (request, 'users/timeOffRequest.html', context)
 
 def setSchedulesView(request): #allows us to add schedules
+    if not request.user.groups.filter(name="Tutor Admin").exists():
+         return (homeView(request))
+    else:
+        form=ScheduleForm(request.POST or None)
 
-    form=ScheduleForm(request.POST or None)
+        if form.is_valid():
+            if form.cleaned_data.get("tutorId")>10e16:
+                messages.warning(request,f'Failed to create schedule, Tutor ID too long.')
+            else:
+                form.save()
+                messages.success(request, f'Schedule Created!')
 
-    if form.is_valid():
-        form.save()
-        messages.success(request, f'Schedule Created!')
+        context = {
 
-    context = {
+            'form':form
 
-        'form':form
-
-    }
+        }
+    
 
 
 
@@ -174,18 +180,22 @@ def studentView(request, student_id):#allows to tutor students
     return render(request,'users/tutorStudent.html',context)
 
 def modifyScheduleView(request, id):# gives us the schedules listed
-
-    schedules=get_object_or_404(Schedules, id=id)
+    if not request.user.groups.filter(name="Tutor Admin").exists():
+         return (homeView(request))
+    else:
+        schedules=get_object_or_404(Schedules, id=id)
     
-    form=ModifyScheduleForm(request.POST or None, instance = schedules)
+        form=ModifyScheduleForm(request.POST or None, instance = schedules)
 
-    if form.is_valid():
-       form.save()
+        if form.is_valid():
+            form.save()
 
-    context={
+        context={
 
-        'form':form
-    }
+            'form':form
+        }
+
+    
 
     return render (request, 'users/modifySchedule.html',context)
 
@@ -223,8 +233,11 @@ def reportView(request):#allows us to add reports about a given session
     form=reportForm(request.POST or None)
 
     if form.is_valid():
-        form.save()
-        messages.success(request, f'Report Created1!')
+        if form.cleaned_data.get("student_id")>10e16:
+            messages.warning(request,f'Failed to create schedule, Student ID too long.')
+        else:
+            form.save()
+            messages.success(request, f'Report Created1')
        
 
     context = {
