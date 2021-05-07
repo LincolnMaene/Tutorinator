@@ -1,0 +1,48 @@
+{% load user_tags %}
+
+<!DOCTYPE html>
+<html>
+<!-- trying to make sure page is centered-->
+    <div class = "content">
+
+        <head>
+            <title>Tutorinator</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        </head>
+        <table class = "table table-dark content" style = "max-width: 90%; margin: auto">
+            <thead>
+                <tr>
+                    <th scope = "col">First Name</th>
+                    <th scope = "col">Last Name</th>
+                    <th scope = "col">Schedule</th>
+                    <th scope = "col">Change</th>
+                    <th scope = "col">Accept Changes</th>
+                    <th scope = "col">Info & Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for schedule in schedules %}
+                <tr style = "background-color: rgb(80, 127, 141); color: rgb(255, 255, 255)">
+                    <th>{{schedule.tutor.first_name}}</th>
+                    <th>{{schedule.tutor.last_name}}</th>
+                    <th>{{schedule.schedule}}</th>
+                    {% if schedule.changed %}
+                    <th>{{schedule.change}}</th>
+                    {% else %}
+                    <th>No Change Requested</th>
+                    {% endif %}
+                    <th>
+                        {% if schedule.changed %}
+                            <a class = "btn btn-light" href="{% url 'schedule' schedule.tutor.id 'accept_changes' %}">Accept Changes</a>
+                        {% else %}
+                            No Change Requested
+                        {% endif %}
+                    </th>
+                    <th><a class = "btn btn-light" href="{% url 'schedule' schedule.tutor.id %}">View Schedule</a></th>
+                    
+                {% endfor %}
+            </tbody>
+        </table>
+        
+    </div>
+</html>

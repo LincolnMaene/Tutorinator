@@ -1,0 +1,54 @@
+
+{% load static %}
+{% load user_tags %}
+
+<!DOCTYPE html>
+
+<html>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type = "text/css" href="{% static 'css/styles.css' %}"/>
+    
+    <title>Tutorinator</title>
+    
+    {% include "generic/header.html" %}
+    
+    <body>
+        <div class = "content" style="text-align:center; font-size: 26px">
+            Tutor Name: {{schedule.tutor}}
+            <br>
+            Schedule: 
+            <p style="font-size:17px; max-width:30%; margin:auto">
+            {{schedule.schedule}}
+            </p>
+            {% if schedule.changed %}
+                Requested Change:
+                <p style="font-size:17px; max-width:30%; margin:auto"> {{schedule.change}} </p>
+            {% endif %}
+            Courses:
+            <br>
+            
+            <table class = "table table-dark content" style = "max-width: 90%; margin: auto">
+                <thead>
+                    <tr>
+                        {% for course in schedule.courses.all %}
+                        <th scope = "col">{{course.name}}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+            </table>
+            
+            {% if request.user|in_group:"Admin" %}
+            {% if schedule.changed %}
+                <a class="btn btn-primary" href="{% url 'schedule' schedule.tutor.id 'accept_changes' %}">Accept Changes</a>
+                <br>
+            {% endif %}
+            <a class="btn btn-primary" href="{% url 'schedule' schedule.tutor.id 'change' %}">Change Schedule</a>
+            <br>
+            {% endif %}
+            {% if request.user|in_group:"Tutor" %}
+            <a class="btn btn-primary" href="{% url 'schedule' schedule.tutor.id 'request_change' %}">Request A Schedule Change</a>
+            <br>
+            {% endif %}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,33 @@
+{% load static %}
+{% load crispy_forms_tags %}
+{% load user_tags %}
+<!DOCTYPE html>
+
+<html>
+{% include "generic/header.html" %}
+<!-- trying to make sure page is centered-->
+
+    <div class = "content">
+            <title>Tutorinator</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            <link rel="stylesheet" type = "text/css" href="{% static 'css/styles.css' %}"/>
+        <body>
+            
+            <h1>Modify Schedule</h1>
+
+           
+           
+            <form method="POST"> {% csrf_token %} <!-- creates form -->
+
+                {{ form|crispy }}
+                
+                {% if request.user|in_group:"Admin" %}
+                    <button  href="{% url 'schedule' schedule.id %}" class="btn btn-outline-info" type="submit">Submit Change</button>
+                {% elif request.user|in_group:"Tutor" %}
+                    <button  href="{% url 'schedule' schedule.id %}" class="btn btn-outline-info" type="submit">Request Change</button>
+                {% endif %}
+           </form>
+    
+        </body>
+        
+</html>

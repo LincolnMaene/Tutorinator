@@ -1,0 +1,61 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+
+
+
+<html lang="en">
+{% include "generic/header.html" %}
+<head>
+  <meta charset="utf-8">
+
+  <title>Tutorinator</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+
+</head>
+<style>
+    .content {
+      max-width: 500px;
+      margin: auto;
+    }
+</style>
+<body>
+  <script src="js/scripts.js"></script>
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="alert alert-{{ message.tags }}">
+
+                {{message}}
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    <div class="content"> 
+
+        <h2> Add Session Details Below </h2>
+            <div class="border-top pt-3"></div>
+            
+           <form method="POST"> {% csrf_token %} <!-- creates form -->
+
+                {{ form|crispy }}
+           
+                <button  href="{% url 'home' %}" class="btn btn-outline-info"   type="submit">Add</button>
+           </form>
+           Back to Home? <a class="ml-2" href="{% url 'home' %}">Click Here</a>
+            </div>
+</body>
+</html>
+

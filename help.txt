@@ -1,0 +1,40 @@
+To run this website:
+
+python 3.0 or above
+pip install Django
+pip install django-crispy-forms
+
+In the same directory as manage.py, run in console:
+py manage.py runserver
+
+View the website on localhost:8000
+
+Accounts:
+    Admin:
+        username: admin
+        password: admin
+        id: 1
+        
+    Tutor only:
+        username: tutor1
+        password: oogabooga
+        id: 2000
+    
+    Tutor & Student:
+        username: tutor2
+        password: oogabooga
+        id: 2001
+        
+    Student:
+        username: Ross
+        password: oogabooga
+        id: 1000
+        
+        username: Lincoln
+        password: oogabooga
+        id: 1000
+        
+        username: Keegan
+        password: oogabooga
+        id: 1000
+    

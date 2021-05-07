@@ -1,0 +1,35 @@
+{% load user_tags %}
+
+
+
+<html>
+    {% include "generic/header.html" %}
+<!-- trying to make sure page is centered-->
+    <div class = "content">
+
+        <head>
+            <title>Tutorinator</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        </head>
+        <table class = "table table-dark content" style = "max-width: 90%; margin: auto">
+            <thead>
+                <tr>
+                    <th scope = "col">Day</th>
+                    <th scope = "col">Course</th>
+                    <th scope = "col">Reporter Name</th>
+                    <th scope = "col">Report</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in reports %}
+                <tr style = "background-color: rgb(80, 127, 141); color: rgb(255, 255, 255)">
+                    <th scope = "row">{{entry.day}}</th>
+                    <th>{{entry.queue_entry}}</th>
+                    <th>{{entry.reporter}}</th>
+                    <th>{{entry.text}}</th>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+    </div>
+</html>

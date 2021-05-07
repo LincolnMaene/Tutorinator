@@ -1,0 +1,49 @@
+{% load static %}
+{% load user_tags %}
+
+<!DOCTYPE html>
+
+<html>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type = "text/css" href="{% static 'css/styles.css' %}"/>
+    
+    <title>Tutorinator</title>
+    
+    {% include "generic/header.html" %}
+    
+    <body>
+        <div class = "content" style="text-align:center; font-size: 26px">
+            Date: {{entry.date}}
+            <br>
+            Course: {{entry.course}}
+            <br>
+            Student First Name: {{entry.student.first_name}}
+            <br>
+            Student Last Name: {{entry.student.last_name}}
+            <br>
+            Tutor First Name: {{entry.tutor.first_name}}
+            <br>
+            Tutor Last Name: {{entry.tutor.last_name}}
+            <br>
+            In Queue: {{entry.inQueue}}
+            <br>
+            {% if in_queue %}
+                {% if request.user == entry.student and request.user|in_group:"Student" or request.user|in_group:"Admin"%}
+                <a class="btn btn-primary" href="{% url 'queueEntry' entry.id 'remove' %}">Remove From Queue</a>
+                <br>
+                {% endif %}
+            {% endif %}
+            {% if not has_tutor %}
+                {% if request.user|in_group:"Tutor" %}
+                <a class="btn btn-primary" href="{% url 'queueEntry' entry.id 'tutor' %}">Tutor This Student</a>
+                <br>
+                {% endif %}
+            {% endif %}
+            {% if request.user|in_group:"Admin" %}
+            <a class="btn btn-danger" href="{% url 'queueEntry' entry.id 'delete' %}">Delete Entry</a>
+            <br>
+            {% endif %}
+            
+        </div>
+    </body>
+</html>

@@ -1,0 +1,47 @@
+{% load static %} {% load crispy_forms_tags %}
+<!DOCTYPE html>
+
+<html>
+    {% include "generic/header.html" %}
+    <title>Tutorinator</title>
+    <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous"
+    />
+    <script src="js/scripts.js"></script>
+    <style>
+        .content {
+            max-width: 500px;
+            margin: auto;
+        }
+    </style>
+
+    <body>
+        <!--form, rendered with django crispy forms-->
+        <div class="content">
+            <form method="POST">
+                {% csrf_token %}
+
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Create Account?</legend>
+
+                    {{ form|crispy }}
+                </fieldset>
+
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">
+                        Register
+                    </button>
+                </div>
+            </form>
+
+            <div class="border-top pt-3">
+                <small class="text-muted">
+                    Already Registered? <a class="ml-2" href="#">Log in</a>
+                </small>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,72 @@
+{% load static %}
+{% load crispy_forms_tags %}
+{% load user_tags %}
+<html>
+{% include "generic/header.html" %}
+<!-- trying to make sure page is centered-->
+    <style>
+        
+        .content { 
+          max-width: 1080px;
+          margin: auto;
+        }
+
+        
+    </style>
+
+    <div class = "content">
+
+        <head>
+
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+            {% if request.user|in_group:"Tutor"%} <!--display a different welcome depending on user group-->
+                <h5>Welcome To Tutorinator 1.0, Tutors</h5>
+
+            {% elif request.user|in_group:"Admin"%}
+
+                <h5>Welcome To Tutorinator 1.0, Admins</h5>
+
+            
+            {% elif request.user|in_group:"Student"%}
+
+                <h5>Welcome To Tutorinator 1.0, Students</h5>
+            
+            {% else %}
+
+                <h5>Welcome To Tutorinator 1.0</h5>
+
+            {% endif  %}
+
+              
+
+            <!--{% if user.is_authenticated %} 
+                <h6>Need to Log out? <a class="ml-2" href="{% url 'logout' %}">Click here</a></h6>
+                <h6>Add Student To Queue? <a class="ml-2" href="{% url 'addStudent' %}">Click here</a></h6>
+            {% else %}
+                
+                <h6>  Already Registered? <a class="ml-2" href="{% url 'login' %}">Log in</a> </h6>
+                <h6>Need An Acoount? <a class="ml-2" href="{% url 'register' %}">Create One</a></h6>
+            {% endif %}-->
+         
+
+            
+
+        </head>
+        {% if request.user|in_group:"Tutor" or request.user|in_group:"Admin" %}
+        <body>
+            
+            <h1>Student Being Tutored:</h1> <!-- print the qeue of students here -->
+
+           
+           
+            <form method="POST"> {% csrf_token %} <!-- creates form -->
+
+                {{ form|crispy }}
+           
+                <button  href="{% url 'home' %}" class="btn btn-outline-info"   type="submit">End Tutoring</button>
+           </form>
+    
+        </body>
+        {% endif  %}
+</html>
