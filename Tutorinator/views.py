@@ -129,7 +129,7 @@ def tutoringRecordView(request): #provides the tutoring records to the admin
         return render (request, 'queue/tutoringRecord.html', queueContext)   
  
     else:
-         return returnHome()
+         return returnHome(request)
 
 def reportView(request): #allows us to add reports about a given session
     if isStudent(request) or isTutor(request):
@@ -157,7 +157,7 @@ def reportListView(request): #provides admins with a list of the reports
         return render (request, 'report/reportList.html', context)
         
     else:
-        return returnHome()
+        return returnHome(request)
 
 def schedulesView(request):# gives us the schedules listed
     
@@ -169,7 +169,7 @@ def schedulesView(request):# gives us the schedules listed
         
     # send non-admins/tutors to the home page
     else:
-        return returnHome()       
+        return returnHome(request)       
 
 def queueView(request): # shows all queue entries that the user is part of. if the user is an admin, it shows all of them
     
